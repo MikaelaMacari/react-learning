@@ -1,17 +1,13 @@
 import "./App.css";
-import Navbar from "./components/Navbar";
-import AboutPage from "./pages/about";
-import ContactsPage from "./pages/contacts";
-import HomePage from "./pages/home";
+import BaseRouter from "./routes";
+import { Outlet } from "react-router-dom";
 
 function App() {
   return (
-    <div className="App">
-      {/* <Navbar />
-      <HomePage />
-      <AboutPage />
-      <ContactsPage /> */}
-    </div>
+    <>
+      <BaseRouter />
+      <Outlet />
+    </>
   );
 }
 
