@@ -1,14 +1,14 @@
 import "./App.css";
 import BaseRouter from "./routes";
 import { Outlet } from "react-router-dom";
-import React from "react";
+import { Suspense } from "react";
 
 function App() {
   return (
     <>
-      <React.Suspense fallback={<div>Loading...</div>}>
+      <Suspense fallback={<div>Loading...</div>}>
         <BaseRouter />
-      </React.Suspense>
+      </Suspense>
       <Outlet />
     </>
   );

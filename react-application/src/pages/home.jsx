@@ -1,5 +1,6 @@
 import React from "react";
 import hero from "../assets/images/hero_section.jpg";
+import { Link } from "react-router-dom";
 
 const HomePage = () => {
   return (
@@ -18,12 +19,16 @@ const HomePage = () => {
             including versions of Lorem Ipsum.
           </p>
           <div className="d-grid gap-2 d-md-flex justify-content-md-start">
-            <button type="button" className="btn btn-dark btn-lg px-4 me-md-2">
-              About us
-            </button>
-            <button type="button" className="btn btn-outline-dark btn-lg px-4">
-              Contacts
-            </button>
+            <Link to="/about">
+              <button type="button" className="btn btn-dark btn-lg px-4 me-md-2">
+                About us
+              </button>
+            </Link>
+            <Link to="/contacts">
+              <button type="button" className="btn btn-outline-dark btn-lg px-4">
+                Contacts
+              </button>
+            </Link>
           </div>
         </div>
       </div>

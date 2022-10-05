@@ -1,9 +1,6 @@
-import React, { lazy, startTransition } from "react";
+import React, { lazy } from "react";
 
 export const LayoutType = {
-  // about: startTransition(() => import("../../pages/about")),
-  // contacts: startTransition(() => import("../../pages/contacts")),
-  // default: startTransition(() => import("../../layouts/default")),
   about: lazy(() => import("../../pages/about")),
   contacts: lazy(() => import("../../pages/contacts")),
   default: lazy(() => import("../../layouts/default")),
