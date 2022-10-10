@@ -4,8 +4,10 @@ import { Layout } from "../components/layout/layout";
 import aboutRoutes from "./modules/about";
 import contactsRoutes from "./modules/contacts";
 import homeRoutes from "./modules/home";
+import productsRoutes from "./modules/products";
+import shoppingCartRoutes from "./modules/shoppingCart";
 
-const routes = [...homeRoutes, ...contactsRoutes, ...aboutRoutes];
+const routes = [...homeRoutes, ...productsRoutes, ...contactsRoutes, ...aboutRoutes, ...shoppingCartRoutes];
 const BaseRouter = () => {
   return (
     <BrowserRouter>

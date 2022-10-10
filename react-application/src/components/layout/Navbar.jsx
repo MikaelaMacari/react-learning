@@ -1,7 +1,13 @@
 import React from "react";
 import logo from "../../assets/images/logo.svg";
 import { Link } from "react-router-dom";
-
+import { HiShoppingCart } from "react-icons/hi";
+const links = [
+  { to: "/", text: "Home" },
+  { to: "/products", text: "Products" },
+  { to: "/contacts", text: "Contacts" },
+  { to: "/about", text: "About" },
+];
 const Navbar = () => {
   return (
     <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
@@ -23,21 +29,21 @@ const Navbar = () => {
             <span className="navbar-toggler-icon"></span>
           </button>
         </div>
-        <div className="collapse navbar-collapse " id="navbarTogglerDemo02">
-          <ul className="navbar-nav me-auto mb-2 mb-lg-0 ">
+        <div className="collapse navbar-collapse" id="navbarTogglerDemo02">
+          <ul className="navbar-nav ms-auto mb-2 mb-lg-0 ">
+            {links.map((link) => {
+              return (
+                <li className="nav-item">
+                  <Link to={link.to} className="nav-link" aria-current="page">
+                    {link.text}
+                  </Link>
+                </li>
+              );
+            })}
             <li className="nav-item">
-              <Link to="/" className="nav-link active" aria-current="page">
-                Home
-              </Link>
-            </li>
-            <li className="nav-item">
-              <Link to="/contacts" className="nav-link">
-                Contacts
-              </Link>
-            </li>
-            <li className="nav-item">
-              <Link to="/about" className="nav-link">
-                About
+              <Link to="/shoppingcart" className="nav-link">
+                <HiShoppingCart className="me-2" />
+                Cart
               </Link>
             </li>
           </ul>
