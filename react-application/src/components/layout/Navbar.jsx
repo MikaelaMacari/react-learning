@@ -33,7 +33,7 @@ const Navbar = () => {
           <ul className="navbar-nav ms-auto mb-2 mb-lg-0 ">
             {links.map((link) => {
               return (
-                <li className="nav-item">
+                <li key={Math.random()} className="nav-item">
                   <Link to={link.to} className="nav-link" aria-current="page">
                     {link.text}
                   </Link>
