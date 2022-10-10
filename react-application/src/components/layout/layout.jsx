@@ -1,8 +1,6 @@
 import React, { lazy } from "react";
 
 export const LayoutType = {
-  about: lazy(() => import("../../pages/about")),
-  contacts: lazy(() => import("../../pages/contacts")),
   default: lazy(() => import("../../layouts/default")),
 };
 

@@ -16,7 +16,7 @@ const ContactsPage = () => {
             <div className="row pb-4">
               <div className="col-md-6">
                 <div className="md-form mb-0">
-                  <label for="name" className="">
+                  <label htmlFor="name" className="">
                     Your name
                   </label>
                   <input type="text" id="name" name="name" className="form-control" />
@@ -25,7 +25,7 @@ const ContactsPage = () => {
 
               <div className="col-md-6">
                 <div className="md-form mb-0">
-                  <label for="email" className="">
+                  <label htmlFor="email" className="">
                     Your email
                   </label>
                   <input type="text" id="email" name="email" className="form-control" />
@@ -36,7 +36,7 @@ const ContactsPage = () => {
             <div className="row pb-4">
               <div className="col-md-12">
                 <div className="md-form mb-0">
-                  <label for="subject" className="">
+                  <label htmlFor="subject" className="">
                     Subject
                   </label>
                   <input type="text" id="subject" name="subject" className="form-control" />
@@ -47,7 +47,7 @@ const ContactsPage = () => {
             <div className="row pb-5">
               <div className="col-md-12">
                 <div className="md-form">
-                  <label for="message">Your message</label>
+                  <label htmlFor="message">Your message</label>
                   <textarea type="text" id="message" name="message" rows="2" className="form-control md-textarea"></textarea>
                 </div>
               </div>
