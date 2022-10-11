@@ -1,43 +1,37 @@
-import React, { useReducer, useState } from "react";
+import React, { useState } from "react";
 import Card from "../components/Card";
 import useLocalStorage from "../hooks/useLocalStorage";
 import { products } from "../mock/products";
 
-const ACTIONS = {
-  ADD_PRODUCT: "add-product",
-  CHANGE_CART_STATE: "change-cart-state",
-};
-
-const reducer = (state, action) => {
-  switch (action.type) {
-    case ACTIONS.ADD_PRODUCT:
-      return [...state, action.item];
-    case ACTIONS.CHANGE_CART_STATE:
-      return products.map((item) => {
-        if (item.id === action.product.id) {
-          return { ...item, inCart: !item.inCart };
-        }
-        return item;
-      });
-    default:
-      throw new Error(`Unknown Action: ${action.type}`);
-  }
-};
-
 const ProductsPage = () => {
-  const [state, dispatch] = useReducer(reducer, []);
   const [cart, setCart] = useLocalStorage("cart", []);
-  const [inCart, setInCart] = useState();
+  const [inCart, setInCart] = useState(false);
 
-  const handleClick = (product) => {
-    dispatch({ type: ACTIONS.ADD_PRODUCT, product });
-    dispatch({ type: ACTIONS.CHANGE_CART_STATE, product });
-
-    console.log(product);
-    setCart((prevProduct) => {
-      return [...prevProduct, product];
-    });
+  const addProductToCart = (product) => {
+    const productIndex = cart.findIndex((item) => item.id === product.id);
+    if (productIndex !== -1) {
+      cart.splice(productIndex, 1);
+      product.inCart = false;
+      console.log("Cart", cart);
+      console.log("incart", inCart);
+      setCart((prevProduct) => {
+        // const prevIndex = prevProduct.findIndex((item) => item.id === product.id);
+        // prevProduct.splice(prevIndex, 1);
+        // console.log("Prev", prevProduct);
+        return prevProduct;
+      });
+    } else {
+      product.inCart = true;
+      setCart((prevProduct) => {
+        return [...prevProduct, product];
+      });
+    }
+    console.log("Product", product);
   };
+
+  // const itemInCart = (id) => {
+  //   return cart.some((item) => item.id === id);
+  // };
   return (
     <div className="container col-xxl-8 px-4 py-5 ">
       <h2 className="mb-5">Products</h2>
@@ -49,10 +43,11 @@ const ProductsPage = () => {
                 imgUrl={product.img}
                 cardTitle={product.title}
                 cardDescription={product.description}
+                cartPrice={product.price}
                 handleClick={() => {
-                  handleClick(product);
+                  addProductToCart(product);
                 }}
-                inCart={inCart}
+                inCart={product.inCart}
               />
             </div>
           );

@@ -1,14 +1,15 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
-const Card = ({ imgUrl, cardTitle, cardDescription, handleClick, inCart }) => {
+const Card = ({ imgUrl, cardTitle, cardDescription, handleClick, inCart, cartPrice }) => {
+  // const [inCart, setInCart] = useState();
   return (
     <div className="card text-bg-dark h-100" style={{ width: "18rem" }}>
       <img src={imgUrl} className="card-img-top h-100" alt="..." />
       <div className="card-body">
         <h5 className="card-title">{cardTitle}</h5>
         <p className="card-text">{cardDescription}</p>
-
+        <h5 className="card-text">${cartPrice}</h5>
         {!inCart ? (
           <div className="d-flex justify-content-center">
             <button className="btn btn-light" onClick={handleClick}>
