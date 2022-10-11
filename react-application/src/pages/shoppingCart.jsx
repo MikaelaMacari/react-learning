@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import useLocalStorage from "../hooks/useLocalStorage";
 
 const ShoppingCartPage = () => {
@@ -6,15 +6,21 @@ const ShoppingCartPage = () => {
   const productPrices = cart.map((item) => item.price);
   const totalPrice = productPrices.reduce((previousValue, currentValue) => previousValue + currentValue, 0);
 
-  const removeFromCart = (cartItemId) => {
-    const cartItemIndex = cart.findIndex((item) => item.id === cartItemId);
-    if (cartItemIndex !== -1) {
-      cart.splice(cartItemIndex, 1);
-    }
-    setCart((prevProduct) => {
-      return prevProduct;
-    });
+  const removeFromCart = (cartItemId, newState) => {
+    setCart(cart.filter((product) => product.id !== cartItemId));
+    // const cartItemIndex = cart.findIndex((item) => item.id === cartItemId);
+    // if (cartItemIndex !== -1) {
+    //   cart.splice(cartItemIndex, 1);
+    // }
+    // setCart((prevProduct) => {
+    //   return prevProduct;
+    // });
   };
+  // useEffect(() => {
+  //   setCart((prevProduct) => {
+  //     return prevProduct;
+  //   });
+  // }, [setCart]);
   return (
     <div className="container col-xxl-8 px-4 py-5 ">
       <h4 className="d-flex justify-content-between align-items-center mb-3">
@@ -32,7 +38,7 @@ const ShoppingCartPage = () => {
                   <button
                     className="btn btn-dark d-flex mt-2"
                     onClick={() => {
-                      removeFromCart(cartItem.id);
+                      removeFromCart(cartItem.id, false);
                     }}
                   >
                     Remove from Cart
