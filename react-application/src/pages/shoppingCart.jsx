@@ -7,7 +7,7 @@ const ShoppingCartPage = () => {
   const handleClick = (product) => {
     removeProductFromCart(product);
   };
-  const [cart, setCart] = useLocalStorage("cart", []);
+  const [cart, setCart] = useLocalStorage("products");
 
   return (
     <div className="container col-xxl-8 px-4 py-5 ">

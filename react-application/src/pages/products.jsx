@@ -1,9 +1,12 @@
 import React, { useState } from "react";
 import Card from "../components/Card";
+import useLocalStorage from "../hooks/useLocalStorage";
 import { productsData } from "../mock/products";
 
 const ProductsPage = () => {
   const [products, setProducts] = useState(productsData);
+  const [cart, setCart] = useLocalStorage("products");
+
   return (
     <div className="container col-xxl-8 px-4 py-5 ">
       <h2 className="mb-5">Products</h2>
