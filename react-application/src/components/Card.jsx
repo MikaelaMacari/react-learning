@@ -1,28 +1,36 @@
-import React from "react";
-import { Link } from "react-router-dom";
+import React, { useEffect, useState } from "react";
+import useProductsShop from "../utils/ProductsContext";
 
-const Card = ({ imgUrl, cardTitle, cardDescription, handleClick, inCart, cartPrice }) => {
-  // const [inCart, setInCart] = useState();
+const Card = ({ cardProduct }) => {
+  const { products, addProductToCart, removeProductFromCart } = useProductsShop();
+  const [isInCart, setIsInCart] = useState(false);
+  useEffect(() => {
+    const productIsInCart = products.find((productItem) => productItem.id === cardProduct.id);
+    if (productIsInCart) {
+      setIsInCart(true);
+    } else {
+      setIsInCart(false);
+    }
+  }, [products, cardProduct.id]);
+  const handleClick = () => {
+    if (isInCart) {
+      removeProductFromCart(cardProduct);
+    } else {
+      addProductToCart(cardProduct);
+    }
+  };
   return (
     <div className="card text-bg-dark h-100" style={{ width: "18rem" }}>
-      <img src={imgUrl} className="card-img-top h-100" alt="..." />
+      <img src={cardProduct.img} className="card-img-top h-100" alt="..." />
       <div className="card-body">
-        <h5 className="card-title">{cardTitle}</h5>
-        <p className="card-text">{cardDescription}</p>
-        <h5 className="card-text">${cartPrice}</h5>
-        {!inCart ? (
-          <div className="d-flex justify-content-center">
-            <button className="btn btn-light" onClick={handleClick}>
-              Add to Cart
-            </button>
-          </div>
-        ) : (
-          <div className="d-flex justify-content-center">
-            <button className="btn btn-light" onClick={handleClick}>
-              Remove from Cart
-            </button>
-          </div>
-        )}
+        <h5 className="card-title">{cardProduct.title}</h5>
+        <p className="card-text">{cardProduct.description}</p>
+        <h5 className="card-text">${cardProduct.price}</h5>
+        <div className="d-flex justify-content-center">
+          <button className="btn btn-light" onClick={handleClick}>
+            {!isInCart ? "Add to Cart" : "Remove from Cart"}
+          </button>
+        </div>
       </div>
     </div>
   );

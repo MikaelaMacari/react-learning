@@ -1,45 +1,40 @@
 import React from "react";
 import useLocalStorage from "../hooks/useLocalStorage";
+import useProductsShop from "../utils/ProductsContext";
 
 const ShoppingCartPage = () => {
-  const [cart, setCart] = useLocalStorage("cart", []);
-  const productPrices = cart.map((item) => item.price);
-  const totalPrice = productPrices.reduce((previousValue, currentValue) => previousValue + currentValue, 0);
-
-  const removeFromCart = (cartItemId, newState) => {
-    setCart(cart.filter((product) => product.id !== cartItemId));
+  const { products, total, removeProductFromCart } = useProductsShop();
+  const handleClick = (product) => {
+    removeProductFromCart(product);
   };
+  const [cart, setCart] = useLocalStorage("cart", []);
+
   return (
     <div className="container col-xxl-8 px-4 py-5 ">
       <h4 className="d-flex justify-content-between align-items-center mb-3">
-        <span className="text-primary">{!!totalPrice ? "Your cart" : "Your cart is empty"}</span>
-        {!!totalPrice && <span className="badge bg-primary rounded-pill">{cart.length}</span>}
+        <span className="text-primary">{!!total ? "Your cart" : "Your cart is empty"}</span>
+        {!!total && <span className="badge bg-primary rounded-pill">{products.length}</span>}
       </h4>
       <ul className="list-group mb-3">
-        {cart &&
-          cart.map((cartItem) => {
+        {products &&
+          products.map((product) => {
             return (
-              <li key={cartItem.id} className="list-group-item d-flex justify-content-between lh-sm">
+              <li key={product.id} className="list-group-item d-flex justify-content-between lh-sm">
                 <div>
-                  <h6 className="my-0">{cartItem.title}</h6>
-                  <small className="text-muted">{cartItem.description}</small>
-                  <button
-                    className="btn btn-dark d-flex mt-2"
-                    onClick={() => {
-                      removeFromCart(cartItem.id, false);
-                    }}
-                  >
+                  <h6 className="my-0">{product.title}</h6>
+                  <small className="text-muted">{product.description}</small>
+                  <button className="btn btn-dark d-flex mt-2" onClick={() => handleClick(product)}>
                     Remove from Cart
                   </button>
                 </div>
-                <span className="text-muted">${cartItem.price}</span>
+                <span className="text-muted">${product.price}</span>
               </li>
             );
           })}
-        {!!totalPrice && (
+        {!!total && (
           <li className="list-group-item d-flex justify-content-between">
             <span>Total (USD)</span>
-            <strong>${totalPrice}</strong>
+            <strong>${total}</strong>
           </li>
         )}
       </ul>
