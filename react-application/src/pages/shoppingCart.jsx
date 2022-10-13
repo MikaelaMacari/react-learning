@@ -4,20 +4,23 @@ import useProductsShop from "../utils/ProductsContext";
 
 const ShoppingCartPage = () => {
   const { products, total, removeProductFromCart } = useProductsShop();
+  const [cart, setCart] = useLocalStorage("products");
   const handleClick = (product) => {
     removeProductFromCart(product);
+    setCart((prevProduct) => prevProduct);
   };
-  const [cart, setCart] = useLocalStorage("products");
 
+  const totalPrice = cart.reduce((accumulator, product) => accumulator + product.price, 0);
+  console.log(cart);
   return (
     <div className="container col-xxl-8 px-4 py-5 ">
       <h4 className="d-flex justify-content-between align-items-center mb-3">
-        <span className="text-primary">{!!total ? "Your cart" : "Your cart is empty"}</span>
-        {!!total && <span className="badge bg-primary rounded-pill">{products.length}</span>}
+        <span className="text-primary">{!!totalPrice ? "Your cart" : "Your cart is empty"}</span>
+        {!!totalPrice && <span className="badge bg-primary rounded-pill">{cart.length}</span>}
       </h4>
       <ul className="list-group mb-3">
-        {products &&
-          products.map((product) => {
+        {cart &&
+          cart.map((product) => {
             return (
               <li key={product.id} className="list-group-item d-flex justify-content-between lh-sm">
                 <div>
@@ -31,10 +34,10 @@ const ShoppingCartPage = () => {
               </li>
             );
           })}
-        {!!total && (
+        {!!totalPrice && (
           <li className="list-group-item d-flex justify-content-between">
             <span>Total (USD)</span>
-            <strong>${total}</strong>
+            <strong>${totalPrice}</strong>
           </li>
         )}
       </ul>

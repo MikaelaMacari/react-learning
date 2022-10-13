@@ -1,3 +1,5 @@
+import useLocalStorage from "../hooks/useLocalStorage";
+
 export const initialState = {
   total: 0,
   products: [],
@@ -7,17 +9,20 @@ export const ACTIONS = {
   REMOVE_FROM_CART: "REMOVE_FROM_CART",
   UPDATE_PRICE: "UPDATE_PRICE",
 };
+
 const productsReducer = (state, action) => {
   const { type, payload } = action;
   switch (type) {
     case ACTIONS.ADD_TO_CART:
       console.log(ACTIONS.ADD_TO_CART, payload);
+      localStorage.setItem("products", JSON.stringify(payload.products));
       return {
         ...state,
         products: payload.products,
       };
     case ACTIONS.REMOVE_FROM_CART:
       console.log(ACTIONS.REMOVE_FROM_CART, payload);
+      localStorage.setItem("products", JSON.stringify(payload.products));
       return {
         ...state,
         products: payload.products,
