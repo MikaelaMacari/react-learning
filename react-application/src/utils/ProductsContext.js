@@ -20,7 +20,6 @@ export const ProductsProvider = ({ children }) => {
   };
 
   const value = {
-    total: state.total,
     products: state.products,
     addProductToCart,
     removeProductFromCart,
