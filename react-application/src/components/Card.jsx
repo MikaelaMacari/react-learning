@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from "react";
+import useLocalStorage from "../hooks/useLocalStorage";
 import useProductsShop from "../utils/ProductsContext";
 
-const Card = ({ cardProduct }) => {
+const Card = ({ cardProduct, setProducts }) => {
   const { products, addProductToCart, removeProductFromCart } = useProductsShop();
-
+  const [cart, setCart] = useLocalStorage("products");
   const [isInCart, setIsInCart] = useState(false);
   useEffect(() => {
     const productIsInCart = products.find((productItem) => productItem.id === cardProduct.id);
@@ -16,10 +17,19 @@ const Card = ({ cardProduct }) => {
   const handleClick = () => {
     if (isInCart) {
       removeProductFromCart(cardProduct);
+      setCart({
+        ...cardProduct,
+        inCart: false,
+      });
     } else {
       addProductToCart(cardProduct);
+      setCart({
+        ...cardProduct,
+        inCart: true,
+      });
     }
   };
+
   return (
     <div className="card text-bg-dark h-100" style={{ width: "18rem" }}>
       <img src={cardProduct.img} className="card-img-top h-100" alt="..." />
