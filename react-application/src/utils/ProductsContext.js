@@ -4,19 +4,18 @@ import productsReducer, { ACTIONS, initialState } from "../store/productsReducer
 
 const ProductsContext = createContext(initialState);
 export const ProductsProvider = ({ children }) => {
-  // const [cart, setCart] = useLocalStorage("products", []);
+  const [cart, setCart] = useLocalStorage("products", []);
   const [state, dispatch] = useReducer(productsReducer, initialState);
 
   const addProductToCart = (product) => {
     const updatedCart = state.products.concat(product);
-    // setCart(updatedCart);
+    setCart(updatedCart);
     dispatch({ type: ACTIONS.ADD_TO_CART, payload: { products: updatedCart } });
-    // console.log("CART", cart);
   };
 
   const removeProductFromCart = (product) => {
     const updatedCart = state.products.filter((currentProduct) => currentProduct.id !== product.id);
-    // setCart(updatedCart);
+    setCart(updatedCart);
     dispatch({ type: ACTIONS.REMOVE_FROM_CART, payload: { products: updatedCart } });
   };
 

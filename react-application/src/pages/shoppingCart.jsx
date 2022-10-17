@@ -1,17 +1,14 @@
 import React from "react";
 import useLocalStorage from "../hooks/useLocalStorage";
-import useProductsShop from "../utils/ProductsContext";
 
 const ShoppingCartPage = () => {
-  const { products, total, removeProductFromCart } = useProductsShop();
   const [cart, setCart] = useLocalStorage("products");
   const handleClick = (product) => {
-    removeProductFromCart(product);
-    setCart((prevProduct) => prevProduct);
+    setCart(cart.filter((cartItem) => cartItem.id !== product.id));
   };
 
   const totalPrice = cart.reduce((accumulator, product) => accumulator + product.price, 0);
-  console.log(cart);
+
   return (
     <div className="container col-xxl-8 px-4 py-5 ">
       <h4 className="d-flex justify-content-between align-items-center mb-3">

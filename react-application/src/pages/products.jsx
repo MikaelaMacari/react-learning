@@ -1,11 +1,11 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Card from "../components/Card";
 import useLocalStorage from "../hooks/useLocalStorage";
 import { productsData } from "../mock/products";
 
 const ProductsPage = () => {
+  const [cart, setCart] = useLocalStorage("products", []);
   const [products, setProducts] = useState(productsData);
-  const [cart, setCart] = useLocalStorage("products");
 
   return (
     <div className="container col-xxl-8 px-4 py-5 ">
@@ -15,7 +15,7 @@ const ProductsPage = () => {
           products.map((product) => {
             return (
               <div key={product.id} className="col-sm-12 col-md-6 col-lg-3 mb-5">
-                <Card cardProduct={product} />
+                <Card cardProduct={product} setProducts={setProducts} />
               </div>
             );
           })}

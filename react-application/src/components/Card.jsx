@@ -1,23 +1,18 @@
 import React, { useEffect, useState } from "react";
-import useLocalStorage from "../hooks/useLocalStorage";
 import useProductsShop from "../utils/ProductsContext";
 
 const Card = ({ cardProduct }) => {
   const { products, addProductToCart, removeProductFromCart } = useProductsShop();
-  const [cart, setCart] = useLocalStorage("products");
-  const [isInCart, setIsInCart] = useState(false);
-  // const productIsInCart = cart.some((cartItem) => cartItem.id === cardProduct.id);
-  // setIsInCart((prevValue)=> prevValue: );
-  useEffect(() => {
-    //const productIsInCart = products.find((productItem) => productItem.id === cardProduct.id);
-    const productIsInCart = cart.find((cartItem) => cartItem.id === cardProduct.id);
 
+  const [isInCart, setIsInCart] = useState(false);
+  useEffect(() => {
+    const productIsInCart = products.find((productItem) => productItem.id === cardProduct.id);
     if (productIsInCart) {
       setIsInCart(true);
     } else {
       setIsInCart(false);
     }
-  }, [cart, cardProduct.id]);
+  }, [products, cardProduct.id]);
   const handleClick = () => {
     if (isInCart) {
       removeProductFromCart(cardProduct);
