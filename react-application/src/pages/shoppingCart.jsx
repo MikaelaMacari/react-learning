@@ -1,4 +1,5 @@
 import React from "react";
+import Form from "../components/Form";
 import useLocalStorage from "../hooks/useLocalStorage";
 
 const ShoppingCartPage = () => {
@@ -38,6 +39,7 @@ const ShoppingCartPage = () => {
           </li>
         )}
       </ul>
+      {cart.length > 0 && <Form />}
     </div>
   );
 };

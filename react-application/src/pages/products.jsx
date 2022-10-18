@@ -14,7 +14,7 @@ const ProductsPage = () => {
           products.map((product) => {
             return (
               <div key={product.id} className="col-sm-12 col-md-6 col-lg-3 mb-5">
-                <Card cardProduct={product} setProducts={setProducts} />
+                <Card cardProduct={product} />
               </div>
             );
           })}

@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import useLocalStorage from "../hooks/useLocalStorage";
 import useProductsShop from "../utils/ProductsContext";
 
-const Card = ({ cardProduct, setProducts }) => {
+const Card = ({ cardProduct }) => {
   const { products, addProductToCart, removeProductFromCart } = useProductsShop();
   const [cart, setCart] = useLocalStorage("products");
   const [isInCart, setIsInCart] = useState(false);
@@ -17,16 +17,12 @@ const Card = ({ cardProduct, setProducts }) => {
   const handleClick = () => {
     if (isInCart) {
       removeProductFromCart(cardProduct);
-      setCart({
-        ...cardProduct,
-        inCart: false,
-      });
+      // setCart({
+      //   ...cardProduct,
+      //   inCart: false,
+      // });
     } else {
       addProductToCart(cardProduct);
-      setCart({
-        ...cardProduct,
-        inCart: true,
-      });
     }
   };
 
