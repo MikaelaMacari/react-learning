@@ -1,28 +1,43 @@
-import React, { useEffect, useState } from "react";
-import useLocalStorage from "../hooks/useLocalStorage";
+import React, { useCallback } from "react";
 import useProductsShop from "../utils/ProductsContext";
 
-const Card = ({ cardProduct }) => {
-  const { products, addProductToCart, removeProductFromCart } = useProductsShop();
-  const [cart, setCart] = useLocalStorage("products");
-  const [isInCart, setIsInCart] = useState(false);
-  useEffect(() => {
-    const productIsInCart = products.find((productItem) => productItem.id === cardProduct.id);
-    if (productIsInCart) {
-      setIsInCart(true);
-    } else {
-      setIsInCart(false);
-    }
-  }, [products, cardProduct.id]);
+const Card = ({ cardProduct, products, setProducts }) => {
+  const { cart, addProductToCart, removeProductFromCart } = useProductsShop();
+  // const [cart, setCart] = useLocalStorage("products");
+  // const [isInCart, setIsInCart] = useState(false);
+  const changeProductState = useCallback(
+    (newState) => {
+      setProducts(
+        products.map((product) => {
+          if (product.id === cardProduct.id) {
+            return {
+              ...product,
+              inCart: newState,
+            };
+          }
+          return product;
+        })
+      );
+    },
+    [cart, cardProduct.id, cardProduct.inCart, products]
+  );
+
+  // useEffect(() => {
+  //   const productIsInCart = cart?.find((productItem) => productItem.id === cardProduct.id);
+  //   if (productIsInCart) {
+  //     // changeProductState(true);
+  //   } else {
+  //     // changeProductState(false);
+  //   }
+  // }, [cart, cardProduct.id]);
   const handleClick = () => {
-    if (isInCart) {
+    console.log(cardProduct);
+    if (cardProduct.inCart) {
       removeProductFromCart(cardProduct);
-      // setCart({
-      //   ...cardProduct,
-      //   inCart: false,
-      // });
+      // changeProductState(false);
     } else {
       addProductToCart(cardProduct);
+      // changeProductState(true);
     }
   };
 
@@ -35,7 +50,7 @@ const Card = ({ cardProduct }) => {
         <h5 className="card-text">${cardProduct.price}</h5>
         <div className="d-flex justify-content-center">
           <button className="btn btn-light" onClick={handleClick}>
-            {!isInCart ? "Add to Cart" : "Remove from Cart"}
+            {!cardProduct.inCart ? "Add to Cart" : "Remove from Cart"}
           </button>
         </div>
       </div>

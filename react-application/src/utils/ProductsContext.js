@@ -8,18 +8,22 @@ export const ProductsProvider = ({ children }) => {
   const [state, dispatch] = useReducer(productsReducer, initialState);
 
   const addProductToCart = (product) => {
+    product.inCart = true;
     const updatedCart = state.products.concat(product);
-    setCart(updatedCart);
     dispatch({ type: ACTIONS.ADD_TO_CART, payload: { products: updatedCart } });
+    setCart(updatedCart);
   };
 
   const removeProductFromCart = (product) => {
+    product.inCart = false;
     const updatedCart = state.products.filter((currentProduct) => currentProduct.id !== product.id);
-    setCart(updatedCart);
     dispatch({ type: ACTIONS.REMOVE_FROM_CART, payload: { products: updatedCart } });
+    setCart(updatedCart);
   };
 
   const value = {
+    cart: cart,
+    setCart: setCart,
     products: state.products,
     addProductToCart,
     removeProductFromCart,
